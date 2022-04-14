@@ -99,6 +99,11 @@ int codeGen(struct tnode* t) {
 		fprintf(stdout, "PUSH R%d\n", r0); //arg3
 		fprintf(stdout, "PUSH R%d\n", r0); //ret pos
 		fprintf(stdout, "CALL 0\n");
+		fprintf(stdout, "POP R%d\n", r0);
+		fprintf(stdout, "POP R%d\n", r0);
+		fprintf(stdout, "POP R%d\n", r0);
+		fprintf(stdout, "POP R%d\n", r0);
+		fprintf(stdout, "POP R%d\n", r0);
 		freeReg();
 		return -1;
 	}
@@ -114,6 +119,11 @@ int codeGen(struct tnode* t) {
 		fprintf(stdout, "PUSH R%d\n", r0); //arg3
 		fprintf(stdout, "PUSH R%d\n", r0); //ret pos
 		fprintf(stdout, "CALL 0\n");
+		fprintf(stdout, "POP R%d\n", r0);
+		fprintf(stdout, "POP R%d\n", r0);
+		fprintf(stdout, "POP R%d\n", r0);
+		fprintf(stdout, "POP R%d\n", r0);
+		fprintf(stdout, "POP R%d\n", r0);
 		freeReg();
 		freeReg();
 		return -1;
