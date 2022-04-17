@@ -8,6 +8,9 @@
 	char *name;
 %}
 
+startcomment \/\*\*
+endcomment \*\*\/
+
 %%
 "write"      { return Write; }
 "read"       { return Read; }
@@ -29,6 +32,7 @@
 
 \+|\*|\-|\/|\= { return yytext[0]; }
 [ \t\r\n]      { ; }
+{startcomment}.*{endcomment} { ; }
 \(             { return yytext[0]; }
 \)             { return yytext[0]; }
 [{}]           { return yytext[0]; }
