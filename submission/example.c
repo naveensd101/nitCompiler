@@ -1,7 +1,7 @@
 read(argc);
 argc=FUN(argc){
 	If( argc <= 1 ) {
-		x = argc;
+		x = 1;
 	} else {
 		x = FUN(argc-1) * argc;
 	}
