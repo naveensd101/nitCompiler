@@ -1,0 +1,11 @@
+read(argc);
+/** this is a comment **/
+argc=FUN(argc){
+	write(argc);
+/** this is a comment **/
+	If(argc == 1) { return 1;}
+	If(argc == 2) { return 1;}
+
+	return ( FUN(argc-1) + FUN(argc-2) );
+}
+write(argc);
