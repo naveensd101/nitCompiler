@@ -1,9 +1,10 @@
 read(argc);
 argc=FUN(argc){
-	write(argc);
-	If(argc == 1) { return 1;}
-	If(argc == 2) { return 1;}
-
-	return ( FUN(argc-1) + FUN(argc-2) );
+	argc = 2;
+	read(x);
+	read(X);
+	write(x);
+	write(X);
+	return x;
 }
 write(argc);

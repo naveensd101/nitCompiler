@@ -49,7 +49,6 @@ struct tnode* makeIfElseTree(tnode *condition, tnode *if_true, tnode *if_false) 
 int reg_index = -1;
 int getReg() {
 	if(reg_index >= 19) {
-		fprintf(stderr, "Error: too many registers\n");
 		exit(1);
 	}
 	reg_index++;
@@ -57,7 +56,6 @@ int getReg() {
 }
 void freeReg() {
 	if(reg_index < 0) {
-		fprintf(stderr, "Error: no registers to free\n");
 		exit(1);
 	}
 	reg_index--;
@@ -104,12 +102,12 @@ int codeGen(struct tnode* t, struct Lsymbol* head) {
 		int flag = 0;
 		int count = 0;
 		while(ptr != NULL) {
+			count++;
 			if(strcmp(ptr->name, t->left->varname) == 0) {
 				varpos = ptr->binding;
 				flag = 1;
 				break;
 			}
-			count++;
 			prev = ptr;
 			ptr = ptr->next;
 		}
@@ -153,12 +151,12 @@ int codeGen(struct tnode* t, struct Lsymbol* head) {
 		int flag = 0;
 		int count = 0;
 		while(ptr != NULL) {
+			count++;
 			if(strcmp(ptr->name, t->varname) == 0) {
 				varpos = ptr->binding;
 				flag = 1;
 				break;
 			}
-			count++;
 			prev = ptr;
 			ptr = ptr->next;
 		}
@@ -204,13 +202,13 @@ int codeGen(struct tnode* t, struct Lsymbol* head) {
 		int count = 0;
 		int varpos = 0;
 		for(ptr = head; ptr != NULL; ptr = ptr->next) {
+			count++;
 			if(strcmp(ptr->name, t->left->varname) == 0) {
-				int varpos = ptr->binding;
+				varpos = ptr->binding;
 				flag = 1;
 				break;
 			}
 			prev = ptr;
-			count++;
 		}
 		if(flag == 0) {
 			//we have to create a new variable
@@ -333,7 +331,6 @@ int codeGen(struct tnode* t, struct Lsymbol* head) {
 		prev = NULL;
 		for(ptr = head; ptr->next != NULL; ptr = ptr->next) {
 			fprintf(stdout, "POP R%d\n", r1);
-			free(prev);
 			prev = ptr;
 		}
 		fprintf(stdout, "MOV R%d, BP\n", r1);
@@ -466,12 +463,12 @@ void setupSymbolTable(tnode* root, Lsymbol* head) {
 		int flag = 0;
 		int count = 0;
 		while(ptr != NULL) {
+			count++;
 			if(strcmp(ptr->name, root->varname) == 0) {
 				varpos = ptr->binding;
 				flag = 1;
 				break;
 			}
-			count++;
 			prev = ptr;
 			ptr = ptr->next;
 		}

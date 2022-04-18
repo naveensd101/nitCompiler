@@ -38,8 +38,8 @@ StmtList: StmtList Stmt  { $$ = makeTree(-1, NULL, connector_node, $1, $2); }
 Stmt: Input      { $$ = $1; }
 	| Output     { $$ = $1; }
 	| Assign     { $$ = $1; }
-	| IfStmt     { $$ = $1; }
 	| IfElseStmt { $$ = $1; }
+	| IfStmt     { $$ = $1; }
 	| RetStmt    { $$ = $1; }
 	;
 
@@ -52,10 +52,10 @@ Output: Write '(' E ')' ';' { $$ = makeTree(-1, NULL, write_node, $3, NULL); }
 Assign: VAR '=' E ';' { $$ = makeTree(-1, NULL, assign_node, $1, $3); }
 	  ;
 
-IfStmt: If '(' E ')' '{' StmtList '}' { $$ = makeTree(-1, NULL, if_node, $3, $6); }
+IfElseStmt: If '(' E ')' '{' StmtList '}' Else '{' StmtList '}' { $$ = makeIfElseTree($3, $6, $10); }
 	  ;
 
-IfElseStmt: If '(' E ')' '{' StmtList '}' Else '{' StmtList '}' { $$ = makeIfElseTree($3, $6, $10); }
+IfStmt: If '(' E ')' '{' StmtList '}' { $$ = makeTree(-1, NULL, if_node, $3, $6); }
 	  ;
 
 RetStmt : Return E ';' { $$ = makeTree(-1, NULL, return_node, $2, NULL); }

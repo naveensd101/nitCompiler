@@ -72,9 +72,8 @@ int codeGen(struct tnode* t, struct Lsymbol* head) {
 		;
 	}
 	else if(t->nodetype == connector_node) {
-		int _temp;
-		_temp = codeGen(t->left, head);
-		_temp = codeGen(t->right, head);
+		codeGen(t->left, head);
+		codeGen(t->right, head);
 		return -1;
 	}
 	else if(t->nodetype == math_node) {
@@ -104,12 +103,12 @@ int codeGen(struct tnode* t, struct Lsymbol* head) {
 		int flag = 0;
 		int count = 0;
 		while(ptr != NULL) {
+			count++;
 			if(strcmp(ptr->name, t->left->varname) == 0) {
 				varpos = ptr->binding;
 				flag = 1;
 				break;
 			}
-			count++;
 			prev = ptr;
 			ptr = ptr->next;
 		}
@@ -153,12 +152,12 @@ int codeGen(struct tnode* t, struct Lsymbol* head) {
 		int flag = 0;
 		int count = 0;
 		while(ptr != NULL) {
+			count++;
 			if(strcmp(ptr->name, t->varname) == 0) {
 				varpos = ptr->binding;
 				flag = 1;
 				break;
 			}
-			count++;
 			prev = ptr;
 			ptr = ptr->next;
 		}
@@ -204,13 +203,13 @@ int codeGen(struct tnode* t, struct Lsymbol* head) {
 		int count = 0;
 		int varpos = 0;
 		for(ptr = head; ptr != NULL; ptr = ptr->next) {
+			count++;
 			if(strcmp(ptr->name, t->left->varname) == 0) {
-				int varpos = ptr->binding;
+				varpos = ptr->binding;
 				flag = 1;
 				break;
 			}
 			prev = ptr;
-			count++;
 		}
 		if(flag == 0) {
 			//we have to create a new variable
@@ -303,7 +302,7 @@ int codeGen(struct tnode* t, struct Lsymbol* head) {
 		int r0 = codeGen(t->left, head);
 		int label = getLabel();
 		fprintf(stdout, "JZ R%d, L%d\n", r0, label);
-		int _t = codeGen(t->right, head);
+		codeGen(t->right, head);
 		fprintf(stdout, "L%d:\n", label);
 		freeReg();
 		return -1;
@@ -313,10 +312,10 @@ int codeGen(struct tnode* t, struct Lsymbol* head) {
 		int label1 = getLabel();
 		int label2 = getLabel();
 		fprintf(stdout, "JZ R%d, L%d\n", r0, label1);
-		int _t = codeGen(t->right->left, head);
+		codeGen(t->right->left, head);
 		fprintf(stdout, "JMP L%d\n", label2);
 		fprintf(stdout, "L%d:\n", label1);
-		_t = codeGen(t->right->right, head);
+		codeGen(t->right->right, head);
 		fprintf(stdout, "L%d:\n", label2);
 		freeReg();
 		return -1;
@@ -463,15 +462,15 @@ void setupSymbolTable(tnode* root, Lsymbol* head) {
 		Lsymbol *ptr = head;
 		Lsymbol *prev = NULL;
 		int varpos = 0;
-		int flag = 0;
 		int count = 0;
+		int flag = 0;
 		while(ptr != NULL) {
+			count++;
 			if(strcmp(ptr->name, root->varname) == 0) {
 				varpos = ptr->binding;
 				flag = 1;
 				break;
 			}
-			count++;
 			prev = ptr;
 			ptr = ptr->next;
 		}
@@ -485,6 +484,7 @@ void setupSymbolTable(tnode* root, Lsymbol* head) {
 			fprintf(stdout, "PUSH SP\n");
 			prev->next = _t;
 			varpos = _t->binding;
+			fprintf(stderr, "varname = %s\nbinding = %d\n", _t->name, _t->binding);
 		}
 
 		//int r0 = getReg();

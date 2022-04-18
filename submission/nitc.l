@@ -24,7 +24,7 @@ endcomment \*\*\/
 	yylval.node = makeTree(number, NULL, number_node, NULL, NULL);
 	return NUM;
 }
-[a-zA-z][a-zA-z0-9]* {
+[a-zA-Z][a-zA-Z0-9]* {
 	name = strdup(yytext);
 	yylval.node = makeTree(-1, name, variable_node, NULL, NULL);
 	return VAR;

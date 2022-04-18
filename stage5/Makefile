@@ -1,6 +1,6 @@
 all:
 	bison --yacc -d nitc.y -Wcounterexamples
-	lex nitc.l
+	lex -i nitc.l
 	gcc y.tab.c lex.yy.c -o nitc
 
 clean:
