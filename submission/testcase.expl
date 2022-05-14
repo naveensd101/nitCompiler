@@ -1,12 +1,10 @@
 /**hi this is a commient**/
 read(argc);
 argc=FUN(argc){
-	read(x);
-	read(X);
-	iF(x < X) {
-		return x;
-	} eLse {
-		return X;
+	if(argc == 1) {
+		x = argc;
+	} else {
+		x = FUN(argc-1)*argc;
 	}
 	return x;
 }

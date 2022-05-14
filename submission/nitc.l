@@ -14,7 +14,7 @@ endcomment \*\*\/
 %%
 "write"      { return Write; }
 "read"       { return Read; }
-"If"         { return If; }
+"if"         { return If; }
 "else"       { return Else; }
 "FUN"        { return Fun; }
 "return"     { return Return; }
